@@ -1,0 +1,17 @@
+<h2>Citazioni suggerite</h2>
+
+@if(quotes.isLoading()) {
+    Caricamento...
+}
+@if(quotes.error()) {
+    Errore: {{ quotes.error() }}
+}
+
+<ul *ngIf="quotes.value() as quoteList">
+    <li *ngFor="let quote of quoteList">
+        "{{ quote.q }}"<br />
+        <small>— <b>{{ quote.a }}</b></small>
+    </li>
+</ul>
+
+<button (click)="quotes.reload()">Ricarica</button>
