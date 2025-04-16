@@ -18,6 +18,8 @@ import { savedQuote } from '../../models/savedQuote';
 })
 export class HomeComponent implements AfterViewInit {
 
+  private splide!: Splide;
+
   constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
   
   ngOnInit(): void {}
@@ -25,21 +27,8 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('splideRef') splideElement!: ElementRef;
   
   ngAfterViewInit(): void {    
-    const splide = new Splide(this.splideElement.nativeElement, {
-      type: 'loop',
-      perPage: 4,
-      autoplay: false,
-      interval: 4000,
-      pauseOnHover: true,
-      arrows: false,
-      pagination: false,
-      autoScroll: {
-        speed: 1,
-        pauseOnHover: true
-      },
-    });
 
-    splide.mount({ AutoScroll });
+    this.initSplide();
 
     gsap.registerPlugin(TextPlugin);
     if (isPlatformBrowser(this.platformId)) {  
@@ -61,6 +50,28 @@ export class HomeComponent implements AfterViewInit {
         //paddingLeft: "2rem",
       });
     }
+  }
+
+  initSplide(): void {
+    if (this.splide) {
+      this.splide.destroy(true); // distrugge la vecchia istanza completamente
+    }
+  
+    const splide = new Splide(this.splideElement.nativeElement, {
+      type: 'loop',
+      perPage: 4,
+      autoplay: false,
+      interval: 4000,
+      pauseOnHover: true,
+      arrows: false,
+      pagination: false,
+      autoScroll: {
+        speed: 1,
+        pauseOnHover: true
+      },
+    });
+  
+    splide.mount({ AutoScroll });
   }
 
   saveQuote(author: string, text: string, date: string): void {
@@ -103,5 +114,6 @@ export class HomeComponent implements AfterViewInit {
   
     // Opzionale: aggiorna la variabile interna (es. se la usi per il rendering)
     this.quotesService.quotes = quotes;
+    setTimeout(() => this.initSplide(), 0); // oppure senza timeout, se funziona
   }
 }
