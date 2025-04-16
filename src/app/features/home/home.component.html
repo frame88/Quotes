@@ -15,7 +15,7 @@
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
-          @for (quote of quotesService.quotes; track quote) {
+          @for (quote of quotesService.quotes; track quote; let i = $index) {
             <li class="splide__slide p1">
               <p>{{quote.q}}</p>
               <div class="justify-end">
@@ -23,7 +23,7 @@
               </div>
               <div class="gap1">
                 <button>info</button>
-                <button>delete</button>
+                <button (click)="deleteQuote(i)">delete</button>
                 <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())">add</button>
               </div>
             </li>

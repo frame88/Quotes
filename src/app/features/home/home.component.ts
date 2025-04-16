@@ -88,4 +88,20 @@ export class HomeComponent implements AfterViewInit {
     const time = now.toLocaleTimeString('it-IT'); // es: 14:36:10
     return `${date} ${time}`;                     // es: 15/04/2025 14:36:10
   }
+
+  deleteQuote(index: number): void {
+    const stored = localStorage.getItem('quotes');
+    const quotes: quote[] = stored ? JSON.parse(stored) : [];
+  
+    if (index >= 0 && index < quotes.length) {
+      quotes.splice(index, 1); // rimuove l'elemento all'indice i
+      localStorage.setItem('quotes', JSON.stringify(quotes));
+      console.log(`Citazione all'indice ${index} rimossa.`);
+    } else {
+      console.warn('Indice non valido per la cancellazione.');
+    }
+  
+    // Opzionale: aggiorna la variabile interna (es. se la usi per il rendering)
+    this.quotesService.quotes = quotes;
+  }
 }
