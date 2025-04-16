@@ -1,10 +1,13 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
 import { QuotesService } from '../../services/quotes.service';
 import { quote } from '../../models/quote';
+import { gsap } from 'gsap';
+import { TextPlugin } from "gsap/TextPlugin";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,7 @@ import { quote } from '../../models/quote';
 })
 export class HomeComponent implements AfterViewInit {
 
-  constructor(public quotesService: QuotesService) {}
+  constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
   
   ngOnInit(): void {}
   
@@ -36,6 +39,27 @@ export class HomeComponent implements AfterViewInit {
     });
 
     splide.mount({ AutoScroll });
+
+    gsap.registerPlugin(TextPlugin);
+    if (isPlatformBrowser(this.platformId)) {  
+      gsap.to(".title", {
+        duration: 2,
+        text: {
+          value: "Quotes",
+          newClass: "class2"
+        },
+      });
+      gsap.to(".slogan", {
+        duration: 2,
+        text: {
+          value: 'Trova la frase giusta, al <span style="color: orange; font-style: italic">momento giusto</span>.',
+          //newClass: "class2"
+        },
+        ease: 'power2.out',
+        innerHTML: true,
+        //paddingLeft: "2rem",
+      });
+    }
   }
     
 }
