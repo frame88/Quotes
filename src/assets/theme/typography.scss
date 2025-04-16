@@ -1,0 +1,20 @@
+@mixin special-gothic {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-style: normal;
+}
+
+.special-gothic-600 {
+    @include special-gothic;
+    font-weight: 600;
+}
+
+.special-gothic-400 {
+    @include special-gothic;
+    font-weight: 400;
+}
+
+.special-gothic-300 {
+    @include special-gothic;
+    font-weight: 300;
+}
+

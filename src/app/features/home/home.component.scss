@@ -1,4 +1,25 @@
+@import '../../../assets/theme/typography.scss';
+
 ul {
     list-style-type: none;
     li { margin-bottom: 2rem;}
+}
+
+#hamburger {
+    height: 40dvh; width: 100%;
+    background-image: url('../../../assets/bg-hamburger/vackground-com-iSaDQdcPozk-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+
+    h1, p { color: white;}
+
+    h1 { font-size: 80px;} 
+    p { font-weight: bold;font-size: 24px;}
+
+    #searchbar {
+        position: absolute; bottom: -2rem;
+    }
+
 }

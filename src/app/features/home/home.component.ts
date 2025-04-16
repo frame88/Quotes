@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { httpResource, HttpResourceRef } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import Splide from '@splidejs/splide';
+import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
 
 interface Quote {
   q: string;   // testo della citazione
@@ -13,7 +14,7 @@ interface Quote {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, SearchbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
