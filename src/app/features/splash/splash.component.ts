@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuotesService } from '../../services/quotes.service';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-splash',
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss'
 })
@@ -28,7 +29,7 @@ export class SplashComponent implements OnInit {
 
     setTimeout(() => {
       this.router.navigate(['/home']);
-    }, 3000);
+    }, 1500);
   }
 
 }
