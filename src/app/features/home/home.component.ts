@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { httpResource, HttpResourceRef } from '@angular/common/http';
-import { signal } from '@angular/core';
-import { effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Splide from '@splidejs/splide';
 
 interface Quote {
   q: string;   // testo della citazione
@@ -18,9 +17,26 @@ interface Quote {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   readonly quotes: HttpResourceRef<Quote[] | undefined> = httpResource<Quote[]>(
     () => 'https://zenquotes.io/api/quotes'
   );
+
+  ngAfterViewInit(): void {
+
+    new Splide( '#splide', {
+      type : 'loop',
+      //drag: 'free',
+      //snap: true,
+      autoplay: true,
+      interval: 2500,
+      perPage: 1,
+      height   : '460px',
+      focus    : 'center',
+      autoWidth: true,
+      pagination: false,
+      arrows: false
+    }).mount();
+  }
 
 }
