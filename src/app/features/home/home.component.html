@@ -1,10 +1,7 @@
 <div id="hamburger" class="center">
     <div class="container-center">
-        <h1 id="title" class="special-gothic-400 m0 title">Quotes</h1>
-        <p id="slogan" class="m0 slogan"></p>
-    </div>
-    <div id="searchbar">
-        <app-searchbar/>
+      <h1 id="title" class="special-gothic-400 m0 title">Quotes</h1>
+      <p id="slogan" class="m0 slogan"></p>
     </div>
 </div>
 
@@ -16,8 +13,15 @@
       <div class="splide__track">
         <ul class="splide__list">
           @for (quote of quotesService.quotes; track quote; let i = $index) {
-            <li class="splide__slide p1">
-              <p>{{quote.q}}</p>
+            <li class="splide__slide p1 card">
+                <div class="card-details">
+                  <p class="text-body">{{quote.q}}</p>
+                  <div class="justify-end">
+                    <p class="text-title">{{quote.a}}</p>
+                  </div>
+                </div>
+                <button class="card-button pointer">Salva</button>
+              <!-- <p>{{quote.q}}</p>
               <div class="justify-end">
                 <p class="bold">{{quote.a}}</p>
               </div>
@@ -25,7 +29,7 @@
                 <button>info</button>
                 <button (click)="deleteQuote(i)">delete</button>
                 <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())">add</button>
-              </div>
+              </div> -->
             </li>
           }
         </ul>
