@@ -1,7 +1,8 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { httpResource, HttpResourceRef } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import Splide from '@splidejs/splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
 
 interface Quote {
@@ -23,21 +24,24 @@ export class HomeComponent implements AfterViewInit {
     () => 'https://zenquotes.io/api/quotes'
   );
 
+  @ViewChild('splideRef') splideElement!: ElementRef;
+
   ngAfterViewInit(): void {
 
-    new Splide( '#splide', {
-      type : 'loop',
-      //drag: 'free',
-      //snap: true,
-      autoplay: true,
-      interval: 2500,
-      perPage: 1,
-      height   : '460px',
-      focus    : 'center',
-      autoWidth: true,
+    
+    const splide = new Splide(this.splideElement.nativeElement, {
+      type: 'loop',
+      perPage: 4,
+      autoplay: false,
+      interval: 4000,
+      pauseOnHover: true,
+      arrows: false,
       pagination: false,
-      arrows: false
-    }).mount();
-  }
+      autoScroll: {
+        speed: 1,
+      },
+    });
 
+    splide.mount({ AutoScroll });
+  }
 }
