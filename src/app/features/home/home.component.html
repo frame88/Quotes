@@ -15,7 +15,7 @@
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
-          @for (quote of quotes; track quote) {
+          @for (quote of quotesService.quotes; track quote) {
             <li class="splide__slide p1">
               <p>{{quote.q}}</p>
               <p class="bold">{{quote.a}}</p>

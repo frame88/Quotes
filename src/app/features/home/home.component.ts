@@ -14,25 +14,9 @@ import { quote } from '../../models/quote';
 })
 export class HomeComponent implements AfterViewInit {
 
-  quotes: quote[] = [];
-  storageQuotes: quote[] = JSON.parse(localStorage.getItem('quotes') || '[]');
-
-  constructor(private quotesService: QuotesService) {}
+  constructor(public quotesService: QuotesService) {}
   
-  ngOnInit(): void {
-    this.quotesService.getQuotes().subscribe({
-      next: (res) => {
-        console.log('entrato nella fn')
-        console.log(res)
-        this.quotes = res;
-        localStorage.setItem('quotes', JSON.stringify(res));
-      },
-      error: (err) => {
-        console.error('Errore durante il recupero delle citazioni:', err);
-      }
-    });    
-    this.storageQuotes = JSON.parse(localStorage.getItem('quotes') || '[]');
-  }
+  ngOnInit(): void {}
   
   @ViewChild('splideRef') splideElement!: ElementRef;
   
@@ -40,7 +24,7 @@ export class HomeComponent implements AfterViewInit {
     const splide = new Splide(this.splideElement.nativeElement, {
       type: 'loop',
       perPage: 4,
-      autoplay: true,
+      autoplay: false,
       interval: 4000,
       pauseOnHover: true,
       arrows: false,

@@ -9,6 +9,8 @@ import { quote } from '../models/quote';
   providedIn: 'root'
 })
 export class QuotesService {
+  quotes: quote[] = [];
+  storageQuotes: quote[] = JSON.parse(localStorage.getItem('quotes') || '[]');
 
   private apiUrl = environment.apiUrl;
 
