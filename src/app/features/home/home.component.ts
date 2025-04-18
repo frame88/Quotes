@@ -10,24 +10,28 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { savedQuote } from '../../models/savedQuote';
 import { BehaviorSubject } from 'rxjs';
 import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
+import { FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, DeleteCtaComponent],
+  imports: [CommonModule, DeleteCtaComponent, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements AfterViewInit {
 
   private splide!: Splide;
+
   private savedQuotesSubject = new BehaviorSubject<savedQuote[]>(this.loadFromStorage());
   savedQuotes$ = this.savedQuotesSubject.asObservable();
+  
   private loadFromStorage(): savedQuote[] {
     const stored = localStorage.getItem('savedQuotes');
     return stored ? JSON.parse(stored).reverse() : [];
   }
   @ViewChildren('quoteTextRef') quoteTextElements!: QueryList<ElementRef>;
-  
+  newQuoteText: string = '';
+  newQuoteAuthor: string = '';  
 
   constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
   
@@ -153,4 +157,27 @@ export class HomeComponent implements AfterViewInit {
       );
     });
   }
+
+  //funzione per agigunt amanuale dei valori
+  addManualQuote(): void {
+    const trimmedText = this.newQuoteText.trim();
+  
+    if (!trimmedText) {
+      alert('Inserisci una citazione.');
+      return;
+    }
+  
+    const quote: savedQuote = {
+      text: trimmedText,
+      author: this.newQuoteAuthor?.trim() || 'Anonimo',
+      date: this.getCurrentDate()
+    };
+  
+    this.saveQuote(quote.author, quote.text, quote.date);
+  
+    // Reset campi
+    this.newQuoteText = '';
+    this.newQuoteAuthor = '';
+  }
+  
 }
