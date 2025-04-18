@@ -3,33 +3,38 @@ import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
-import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
 import { QuotesService } from '../../services/quotes.service';
 import { quote } from '../../models/quote';
 import { gsap } from 'gsap';
 import { TextPlugin } from "gsap/TextPlugin";
 import { savedQuote } from '../../models/savedQuote';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, SearchbarComponent],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements AfterViewInit {
 
   private splide!: Splide;
+  private savedQuotesSubject = new BehaviorSubject<savedQuote[]>(this.loadFromStorage());
+  savedQuotes$ = this.savedQuotesSubject.asObservable();
+  private loadFromStorage(): savedQuote[] {
+    const stored = localStorage.getItem('savedQuotes');
+    return stored ? JSON.parse(stored).reverse() : [];
+  }
+  
 
   constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
   
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   
   @ViewChild('splideRef') splideElement!: ElementRef;
   
-  ngAfterViewInit(): void {    
-
+  ngAfterViewInit(): void { 
     this.initSplide();
-
     gsap.registerPlugin(TextPlugin);
     if (isPlatformBrowser(this.platformId)) {  
       gsap.to(".title", {
@@ -76,21 +81,22 @@ export class HomeComponent implements AfterViewInit {
 
   saveQuote(author: string, text: string, date: string): void {
     const newEntry: savedQuote = { author, text, date };
+
+    const currentQuotes = [...this.savedQuotesSubject.value];
   
-    const stored = localStorage.getItem('savedQuotes');
-    const savedQuotes: savedQuote[] = stored ? JSON.parse(stored) : [];
-  
-    const exists = savedQuotes.some(
+    const exists = currentQuotes.some(
       (quote) => quote.author === author && quote.text === text
     );
   
     if (!exists) {
-      savedQuotes.push(newEntry);
-      localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+      const updatedQuotes = [...currentQuotes, newEntry];
+      localStorage.setItem('savedQuotes', JSON.stringify(updatedQuotes));
+      this.savedQuotesSubject.next(updatedQuotes.reverse()); // aggiorna lo stream
+  
       console.log('Citazione salvata:', newEntry);
     } else {
       console.log('Citazione già presente, non salvata.');
-    }
+    }  
   }  
 
   getCurrentDate(): string {

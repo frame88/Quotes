@@ -6,9 +6,7 @@
 </div>
 
 <div class="mt2 pt2">
-
-    <h2 class="special-gothic-400 ml2">Citazioni suggerite</h2>
-    
+    <h2 class="special-gothic-400 ml2">Citazioni suggerite</h2>    
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
@@ -20,7 +18,7 @@
                     <p class="text-title">{{quote.a}}</p>
                   </div>
                 </div>
-                <button class="card-button pointer">Salva</button>
+                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())" class="card-button pointer">Salva</button>
               <!-- <p>{{quote.q}}</p>
               <div class="justify-end">
                 <p class="bold">{{quote.a}}</p>
@@ -34,5 +32,17 @@
           }
         </ul>
       </div>
+    </div>
+    <h2>Citazioni salvate</h2>
+    <div>
+      <ul>
+        @for (quote of savedQuotes$ | async; track quote) {
+          <li>
+            <p>"{{ quote.text }}"</p>
+            <p><strong>— {{ quote.author }}</strong></p>
+            <p class="small">{{ quote.date }}</p>
+          </li>
+        }
+      </ul>
     </div>
 </div>
