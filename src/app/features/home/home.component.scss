@@ -1,4 +1,6 @@
 @import '../../../assets/theme/typography.scss';
+@import '../../../assets/theme/button.scss';
+@import '../../../assets/theme/colors.scss';
 
 ul {
     list-style-type: none;
@@ -28,7 +30,18 @@ ul {
 
 }
 
-/* From Uiverse.io by alexruix */ 
+.add-quote-form {
+    width: 100%;
+    display: flex; justify-content: center; gap: 1rem;
+    input, textarea {
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        border: 2px solid #c3c6ce;
+    }
+
+}
+
+
 .card {
     width: 190px;
     width: fit-content;
@@ -90,6 +103,7 @@ ul {
 
    .saved-quote {
     border-bottom: 2px solid rgba(128, 128, 128, 0.2);
+
     .date {
         opacity: .7; font-size: 10px;
     }

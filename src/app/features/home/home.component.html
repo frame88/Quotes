@@ -10,10 +10,16 @@
 </div>
 
 <div class="mt2 pt2">
-  <div class="add-quote-form">
-    <input type="text" [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required />
-    <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
-    <button (click)="addManualQuote()">Aggiungi</button>
+
+  <div class="add-quote-form align-end">
+    <div class="flex-column">
+      <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1"></textarea>
+      <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
+    </div>
+    <button (click)="addManualQuote()"  
+        [disabled]="!newQuoteText?.trim()"  
+        class="btn-primary">Aggiungi</button>
+    <button class="btn-secondary">Suggerisci</button>
   </div>
 
     <h2 class="special-gothic-400 ml2">Citazioni suggerite</h2>    
@@ -29,7 +35,7 @@
                   </div>
                 </div>
                 <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())" class="card-button pointer">
-                  <img style="width: 40px;" src="../../../assets/icon/plus-solid.svg" alt="">
+                  <img style="width: 20px;" src="../../../assets/icon/plus-solid.svg" alt="">
                 </button>
                 <!-- (click)="deleteQuote(i)" -->
             </li>
@@ -41,7 +47,7 @@
     <div class="ml2">
       <ul class="ml2 mr2 pr2">
         @for (quote of savedQuotes$ | async; track quote; let i = $index) {
-          <li class="saved-quote space-between">
+          <li class="saved-quote">
             <div>
               <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
               <p><strong>— {{ quote.author }}</strong></p>
