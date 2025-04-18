@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, Inject, PLATFORM_ID, ViewChildren, QueryList } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import Splide from '@splidejs/splide';
@@ -25,6 +25,7 @@ export class HomeComponent implements AfterViewInit {
     const stored = localStorage.getItem('savedQuotes');
     return stored ? JSON.parse(stored).reverse() : [];
   }
+  @ViewChildren('quoteTextRef') quoteTextElements!: QueryList<ElementRef>;
   
 
   constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
@@ -34,6 +35,7 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('splideRef') splideElement!: ElementRef;
   
   ngAfterViewInit(): void { 
+    this.animateQuotes();
     this.initSplide();
     gsap.registerPlugin(TextPlugin);
     if (isPlatformBrowser(this.platformId)) {  
@@ -121,5 +123,25 @@ export class HomeComponent implements AfterViewInit {
     // Opzionale: aggiorna la variabile interna (es. se la usi per il rendering)
     this.quotesService.quotes = quotes;
     setTimeout(() => this.initSplide(), 0); // oppure senza timeout, se funziona
+  }
+
+  animateQuotes(): void {
+    this.quoteTextElements.forEach((elRef: ElementRef) => {
+      const element = elRef.nativeElement;
+      const originalText = element.innerText;
+  
+      gsap.fromTo(
+        element,
+        { text: { value: '' } },
+        {
+          duration: 2,
+          text: { value: originalText },
+          ease: 'power4.out',
+          innerHTML: true,
+
+          stagger: 2
+        }
+      );
+    });
   }
 }

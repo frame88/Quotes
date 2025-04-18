@@ -33,14 +33,16 @@
         </ul>
       </div>
     </div>
-    <h2>Citazioni salvate</h2>
-    <div>
-      <ul>
+    <h2 class="special-gothic-400 ml2">Citazioni salvate</h2>
+    <div class="ml2">
+      <ul class="ml2 mr2 pr2">
         @for (quote of savedQuotes$ | async; track quote) {
-          <li>
-            <p>"{{ quote.text }}"</p>
+          <li class="saved-quote">
+            <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
             <p><strong>— {{ quote.author }}</strong></p>
-            <p class="small">{{ quote.date }}</p>
+            <div class="justify-end">
+              <p class="date">{{ quote.date }}</p>
+            </div>
           </li>
         }
       </ul>
