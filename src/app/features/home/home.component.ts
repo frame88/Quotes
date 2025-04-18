@@ -11,18 +11,21 @@ import { savedQuote } from '../../models/savedQuote';
 import { BehaviorSubject } from 'rxjs';
 import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
 import { GptService } from '../../services/gpt.service';
+import { FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, DeleteCtaComponent],
+  imports: [CommonModule, DeleteCtaComponent, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements AfterViewInit {
 
   private splide!: Splide;
+
   private savedQuotesSubject = new BehaviorSubject<savedQuote[]>(this.loadFromStorage());
   savedQuotes$ = this.savedQuotesSubject.asObservable();
+  
   private loadFromStorage(): savedQuote[] {
     const stored = localStorage.getItem('savedQuotes');
     return stored ? JSON.parse(stored).reverse() : [];
@@ -31,6 +34,8 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('splideRef') splideElement!: ElementRef;
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
   quotez: string | null = null;
+  newQuoteText: string = '';
+  newQuoteAuthor: string = '';  
 
   constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object, private gptService: GptService) {}
   
@@ -130,9 +135,8 @@ export class HomeComponent implements AfterViewInit {
       console.warn('Indice non valido per la cancellazione.');
     }
   
-    // Opzionale: aggiorna la variabile interna (es. se la usi per il rendering)
     this.quotesService.quotes = quotes;
-    setTimeout(() => this.initSplide(), 0); // oppure senza timeout, se funziona
+    setTimeout(() => this.initSplide(), 0);
   }
 
   animateQuotes(): void {
@@ -161,4 +165,26 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
+  //funzione per agigunt amanuale dei valori
+  addManualQuote(): void {
+    const trimmedText = this.newQuoteText.trim();
+  
+    if (!trimmedText) {
+      alert('Inserisci una citazione.');
+      return;
+    }
+  
+    const quote: savedQuote = {
+      text: trimmedText,
+      author: this.newQuoteAuthor?.trim() || 'Anonimo',
+      date: this.getCurrentDate()
+    };
+  
+    this.saveQuote(quote.author, quote.text, quote.date);
+  
+    // Reset campi
+    this.newQuoteText = '';
+    this.newQuoteAuthor = '';
+  }
+  
 }
