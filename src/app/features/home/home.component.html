@@ -10,7 +10,7 @@
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
-          @for (quote of quotesService.quotes; track quote; let i = $index) {
+          @for (quote of quotesService.storageQuotes; track quote; let i = $index) {
             <li class="splide__slide p1 card">
                 <div class="card-details">
                   <p class="text-body">{{quote.q}}</p>
