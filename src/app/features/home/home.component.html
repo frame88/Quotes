@@ -10,7 +10,12 @@
 </div>
 
 <div class="mt2 pt2">
-    <h2 class="special-gothic-400 ml2">Citazioni suggerite </h2>    
+  <div class="red">
+    <button (click)="generaCitazione()">Genera citazione</button>
+    <p *ngIf="quotez">{{ quotez }}</p>
+  </div>
+
+    <h2 class="special-gothic-400 ml2">Citazioni suggerite</h2>    
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">

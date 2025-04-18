@@ -10,6 +10,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { savedQuote } from '../../models/savedQuote';
 import { BehaviorSubject } from 'rxjs';
 import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
+import { GptService } from '../../services/gpt.service';
 
 @Component({
   selector: 'app-home',
@@ -27,15 +28,15 @@ export class HomeComponent implements AfterViewInit {
     return stored ? JSON.parse(stored).reverse() : [];
   }
   @ViewChildren('quoteTextRef') quoteTextElements!: QueryList<ElementRef>;
-  
+  @ViewChild('splideRef') splideElement!: ElementRef;
+  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
+  quotez: string | null = null;
 
-  constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object, private gptService: GptService) {}
   
   ngOnInit(): void { }
   
-  @ViewChild('splideRef') splideElement!: ElementRef;
-  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
-  
+
   ngAfterViewInit(): void { 
     this.animateQuotes();
     this.initSplide();
@@ -153,4 +154,11 @@ export class HomeComponent implements AfterViewInit {
       );
     });
   }
+
+  generaCitazione(): void {
+    this.gptService.askGpt('Dammi una citazione breve sul cambiamento.').subscribe(res => {
+      this.quotez = res.choices[0].message.content;
+    });
+  }
+
 }
