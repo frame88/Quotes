@@ -12,10 +12,11 @@ import { BehaviorSubject } from 'rxjs';
 import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
 import { GptService } from '../../services/gpt.service';
 import { FormsModule} from "@angular/forms";
+import { FooterComponent } from '../../core/footer/footer.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, DeleteCtaComponent, FormsModule],
+  imports: [CommonModule, DeleteCtaComponent, FormsModule, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

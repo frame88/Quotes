@@ -1,0 +1,14 @@
+@import "../../../assets/theme/colors.scss";
+
+div {
+    width: calc(100% - 2rem);
+    height: fit-content;
+    background-color: $primary;
+    text-align: end;
+    color: white;
+    display: flex; align-items: center; justify-content: end;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000000;
+}
