@@ -1,6 +1,10 @@
 <div id="hamburger" class="center">
+    <video #bgVideo autoplay muted loop playsinline class="video-bg">
+      <source src="../../../assets/bg-hamburger/watercolor.mp4" type="video/mp4" />
+      Il tuo browser non supporta il video.
+    </video>
     <div class="container-center">
-      <h1 id="title" class="special-gothic-400 m0 title">Quotes</h1>
+      <h1 id="title" class="special-gothic-400 m0 title entry">Quotes</h1>
       <p id="slogan" class="m0 slogan"></p>
     </div>
 </div>
@@ -18,16 +22,10 @@
                     <p class="text-title">{{quote.a}}</p>
                   </div>
                 </div>
-                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())" class="card-button pointer">Salva</button>
-              <!-- <p>{{quote.q}}</p>
-              <div class="justify-end">
-                <p class="bold">{{quote.a}}</p>
-              </div>
-              <div class="gap1">
-                <button>info</button>
-                <button (click)="deleteQuote(i)">delete</button>
-                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())">add</button>
-              </div> -->
+                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())" class="card-button pointer">
+                  <img style="width: 40px;" src="../../../assets/icon/plus-solid.svg" alt="">
+                </button>
+                <!-- (click)="deleteQuote(i)" -->
             </li>
           }
         </ul>
@@ -36,11 +34,14 @@
     <h2 class="special-gothic-400 ml2">Citazioni salvate</h2>
     <div class="ml2">
       <ul class="ml2 mr2 pr2">
-        @for (quote of savedQuotes$ | async; track quote) {
-          <li class="saved-quote">
-            <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
-            <p><strong>— {{ quote.author }}</strong></p>
-            <div class="justify-end">
+        @for (quote of savedQuotes$ | async; track quote; let i = $index) {
+          <li class="saved-quote space-between">
+            <div>
+              <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
+              <p><strong>— {{ quote.author }}</strong></p>
+            </div>
+            <div class="flex-column align-end justify-center">
+              <app-delete-cta />
               <p class="date">{{ quote.date }}</p>
             </div>
           </li>

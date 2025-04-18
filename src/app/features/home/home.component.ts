@@ -9,10 +9,11 @@ import { gsap } from 'gsap';
 import { TextPlugin } from "gsap/TextPlugin";
 import { savedQuote } from '../../models/savedQuote';
 import { BehaviorSubject } from 'rxjs';
+import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, DeleteCtaComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -33,6 +34,7 @@ export class HomeComponent implements AfterViewInit {
   ngOnInit(): void { }
   
   @ViewChild('splideRef') splideElement!: ElementRef;
+  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
   
   ngAfterViewInit(): void { 
     this.animateQuotes();
@@ -43,11 +45,12 @@ export class HomeComponent implements AfterViewInit {
         duration: 2,
         text: {
           value: "Quotes",
-          newClass: "class2"
+          newClass: "entry"
         },
       });
       gsap.to(".slogan", {
         duration: 2,
+        delay: 1.5,
         text: {
           value: 'Trova la frase giusta, al <span style="color: orange; font-style: italic">momento giusto</span>.',
           //newClass: "class2"
@@ -57,6 +60,12 @@ export class HomeComponent implements AfterViewInit {
         //paddingLeft: "2rem",
       });
     }
+    
+    const video = this.bgVideo.nativeElement;
+    video.muted = true;
+    video.play().catch((err) => {
+    console.warn('Autoplay bloccato dal browser:', err);
+    });
   }
 
   initSplide(): void {
