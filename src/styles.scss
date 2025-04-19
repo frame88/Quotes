@@ -243,23 +243,25 @@ body {
 
 
 .gap05 {
-
+    display: flex;
     gap: 0.5rem;
-
+    
 }
 
 
 
 .gap1 {
-
+    
+    display: flex;
     gap: 1rem;
-
+    
 }
 
 
 
 .gap2 {
-
+    
+    display: flex;
     gap: 2rem;
 
 }
@@ -535,6 +537,20 @@ body {
 .ml2 {
 
     margin-left: 2em !important;
+
+}
+
+
+.ml10 {
+
+    margin-left: 10vw !important;
+
+}
+
+
+.ml15 {
+
+    margin-left: 15vw !important;
 
 }
 

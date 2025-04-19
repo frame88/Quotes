@@ -1,14 +1,26 @@
 @import "../../../assets/theme/colors.scss";
 
-div {
+#footer {
     width: calc(100% - 2rem);
-    height: fit-content;
+    height: 30px;
     background-color: $primary;
     text-align: end;
     color: white;
     display: flex; align-items: center; justify-content: end;
-    position: fixed;
+    position: fixed; z-index: 1000000;
     bottom: 0;
     left: 0;
-    z-index: 1000000;
+
+    .info {
+        background-color: $main;
+        padding: .7rem;
+        margin-right: 3rem;
+        border-radius: 50%;
+        transform: translateY(-10px);
+        &:hover {
+            img {
+                transform: scale(1.2); transition-duration: .3s; cursor: pointer;
+            }
+        }
+    }
 }

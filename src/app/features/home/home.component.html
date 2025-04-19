@@ -19,12 +19,14 @@
     <div class="flex-column">
       <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1"></textarea>
       <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
+      <div class="mt1 gap05">
+        <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
+        <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
+      </div>
     </div>
-    <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
-    <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
   </div>
 
-    <h2 class="special-gothic-400 ml2">Citazioni suggerite</h2>    
+    <h2 class="special-gothic-400 ml10">Citazioni suggerite</h2>    
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
@@ -45,9 +47,9 @@
         </ul>
       </div>
     </div>
-    <h2 class="special-gothic-400 ml2">Citazioni salvate</h2>
-    <div class="ml2">
-      <ul class="ml2 mr2 pr2">
+    <div id="list-savedquotes">
+      <h2 class="special-gothic-400">Citazioni salvate</h2>
+      <ul class="mr2">
         @for (quote of savedQuotes$ | async; track quote; let i = $index) {
           <li class="saved-quote">
             <div>
@@ -64,4 +66,4 @@
     </div>
 </div>
 
-<app-footer style="position: sticky;" />
+<app-footer/>

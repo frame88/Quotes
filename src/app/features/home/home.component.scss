@@ -135,6 +135,10 @@ ul {
     animation: fadeInAnimation .3s ease-in forwards;
 }
 
+#list-savedquotes {
+    margin: 0 10vw;
+}
+
 @keyframes fadeInAnimation {
     from {
         transform: translateY(0);

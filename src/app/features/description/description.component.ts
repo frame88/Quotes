@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from '../../core/footer/footer.component';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-description',
@@ -9,4 +10,5 @@ import { FooterComponent } from '../../core/footer/footer.component';
 })
 export class DescriptionComponent {
 
+  constructor(public ui: UiService) { }
 }

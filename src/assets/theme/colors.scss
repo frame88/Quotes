@@ -3,5 +3,7 @@ $primary-hover: darken($primary, 10%);
 $primary-disabled: lighten($primary, 30%);
 
 $secondary: white;
-$secondary-hover: darken($secondary, 10%);
-$secondary-disabled: lighten($secondary, 30%);
+$secondary-hover: darken($secondary, 2%);
+$secondary-disabled: darken($secondary, 30%);
+
+$main: orange;
