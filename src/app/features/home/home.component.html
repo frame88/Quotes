@@ -11,17 +11,18 @@
 
 <div class="mt2 pt2">
   <div>
-  <div class="text-center" style="height: 50px;">
+  <!-- <div class="text-center" style="height: 50px;">
     <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4>
-  </div>
+  </div> -->
 
-  <div class="add-quote-form align-end">
+  <div class="add-quote-form align-end mb2 pb2">
     <div class="flex-column">
       <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1"></textarea>
       <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
       <div class="mt1 gap05">
         <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
         <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
+        <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4>
       </div>
     </div>
   </div>
