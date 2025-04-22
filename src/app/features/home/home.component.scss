@@ -53,18 +53,25 @@ ul {
     border: 2px solid #c3c6ce;
     transition: 0.5s ease-out;
     overflow: visible;
-   }
+
+    .remove {
+        background-color: #ff6347;
+        border: none;
+        width: 30px; height: 30px; border-radius: 50%;
+        cursor: pointer;
+    }
+}
    
-   .card-details {
+.card-details {
     color: black;
     height: 100%;
     gap: .5em;
     display: grid;
     place-content: center;
-   }
+}
    //colore per la delete
    //background-color: #ff6347;
-   .card-button {
+.card-button {
     transform: translate(-50%, 125%);
     width: 60%;
     border-radius: 1rem;
@@ -78,7 +85,7 @@ ul {
     bottom: 0;
     opacity: 0;
     transition: 0.3s ease-out;
-   }
+}
    
    .text-body {
     color: rgb(134, 134, 134);

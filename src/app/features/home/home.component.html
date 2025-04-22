@@ -17,12 +17,12 @@
 
   <div class="add-quote-form align-end mb2 pb2">
     <div class="flex-column">
-      <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1"></textarea>
+      <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1" [value]="quotez"></textarea>
       <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
       <div class="mt1 gap05">
         <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
         <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
-        <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4>
+        <!-- <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4> -->
       </div>
     </div>
   </div>
@@ -33,13 +33,16 @@
         <ul class="splide__list">
           @for (quote of quotesService.storageQuotes; track quote; let i = $index) {
             <li class="splide__slide p1 card">
+              <div class="mb1 justify-end">
+                <button (click)="deleteQuote(i)" class="remove"><img src="../../../assets/icon/circle-xmark-solid.svg" alt=""></button>
+              </div>
                 <div class="card-details">
                   <p class="text-body">{{quote.q}}</p>
                   <div class="justify-end">
                     <p class="text-title">{{quote.a}}</p>
                   </div>
                 </div>
-                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate())" class="card-button pointer">
+                <button (click)="saveQuote(quote.a, quote.q, getCurrentDate()); deleteQuote(i)" class="card-button pointer">
                   <img style="width: 20px;" src="../../../assets/icon/plus-solid.svg" alt="">
                 </button>
                 <!-- (click)="deleteQuote(i)" -->
@@ -58,7 +61,7 @@
               <p><strong>— {{ quote.author }}</strong></p>
             </div>
             <div class="flex-column align-end justify-center">
-              <app-delete-cta />
+              <app-delete-cta (click)="deleteQuote(i)" />
               <p class="date">{{ quote.date }}</p>
             </div>
           </li>

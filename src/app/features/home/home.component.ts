@@ -130,6 +130,7 @@ export class HomeComponent implements AfterViewInit {
   
     if (index >= 0 && index < quotes.length) {
       quotes.splice(index, 1); // rimuove l'elemento all'indice i
+      this.quotesService.storageQuotes.splice(index, 1); // rimuove l'elemento all'indice i
       localStorage.setItem('quotes', JSON.stringify(quotes));
       console.log(`Citazione all'indice ${index} rimossa.`);
     } else {
