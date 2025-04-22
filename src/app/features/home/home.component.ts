@@ -13,6 +13,7 @@ import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component
 import { GptService } from '../../services/gpt.service';
 import { FormsModule} from "@angular/forms";
 import { FooterComponent } from '../../core/footer/footer.component';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-home',
@@ -36,9 +37,19 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
   quotez: string | null = null;
   newQuoteText: string = '';
-  newQuoteAuthor: string = '';  
+  newQuoteAuthor: string = ''; 
+  isLandscape = false; 
 
-  constructor(public quotesService: QuotesService, @Inject(PLATFORM_ID) private platformId: Object, private gptService: GptService) {}
+  constructor(
+    public quotesService: QuotesService, 
+    @Inject(PLATFORM_ID) private platformId: Object, 
+    private gptService: GptService,
+    private ui: UiService
+  ) {
+    this.ui.orientation$.subscribe(value => {
+      this.isLandscape = value;
+    });
+  }
   
   ngOnInit(): void { }
   
