@@ -38,7 +38,7 @@ export class HomeComponent implements AfterViewInit {
   quotez: string | null = null;
   newQuoteText: string = '';
   newQuoteAuthor: string = ''; 
-  isLandscape = false; 
+  isLandscape = false;  
 
   constructor(
     public quotesService: QuotesService, 
@@ -87,25 +87,43 @@ export class HomeComponent implements AfterViewInit {
   }
 
   initSplide(): void {
+
     if (this.splide) {
       this.splide.destroy(true); // distrugge la vecchia istanza completamente
     }
+    
+    if(this.isLandscape) {
+      const splide = new Splide(this.splideElement.nativeElement, {
+        type: 'loop',
+        perPage: 4,
+        autoplay: false,
+        interval: 4000,
+        pauseOnHover: true,
+        arrows: false,
+        pagination: false,
+        autoScroll: {
+          speed: 1,
+          pauseOnHover: true
+        },
+      });
+      splide.mount({ AutoScroll });
+    } else {
+        const splide = new Splide(this.splideElement.nativeElement, {
+        type: 'loop',
+        perPage: 1,
+        autoplay: false,
+        interval: 4000,
+        pauseOnHover: true,
+        arrows: false,
+        pagination: false,
+        autoScroll: {
+          speed: 1,
+          pauseOnHover: true
+        },
+      });
+      splide.mount({ AutoScroll });
+    }
   
-    const splide = new Splide(this.splideElement.nativeElement, {
-      type: 'loop',
-      perPage: 4,
-      autoplay: false,
-      interval: 4000,
-      pauseOnHover: true,
-      arrows: false,
-      pagination: false,
-      autoScroll: {
-        speed: 1,
-        pauseOnHover: true
-      },
-    });
-  
-    splide.mount({ AutoScroll });
   }
 
   saveQuote(author: string, text: string, date: string): void {

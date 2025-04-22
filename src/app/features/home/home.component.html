@@ -15,19 +15,19 @@
     <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4>
   </div> -->
 
-  <div class="add-quote-form align-end mb2 pb2">
-    <div class="flex-column">
-      <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" cols="50" class="mb1" [value]="quotez"></textarea>
-      <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
-      <div class="mt1 gap05">
-        <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
-        <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
-        <!-- <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4> -->
+    <div class="add-quote-form mb2 pb2" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
+      <div class="flex-column">
+        <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" class="mb1" [value]="quotez"></textarea>
+        <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
+        <div class="mt1 gap05">
+          <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
+          <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
+          <!-- <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4> -->
+        </div>
       </div>
     </div>
-  </div>
 
-    <h2 class="special-gothic-400 ml10">Citazioni suggerite</h2>    
+    <h2 class="special-gothic-400 mb2" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">Citazioni suggerite</h2>    
     <div class="splide" #splideRef>
       <div class="splide__track">
         <ul class="splide__list">
@@ -51,9 +51,10 @@
         </ul>
       </div>
     </div>
-    <div id="list-savedquotes">
+
+    <div id="list-savedquotes" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
       <h2 class="special-gothic-400">Citazioni salvate</h2>
-      <ul class="mr2">
+      <ul class="pb2 mb2">
         @for (quote of savedQuotes$ | async; track quote; let i = $index) {
           <li class="saved-quote">
             <div>
@@ -68,6 +69,6 @@
         }
       </ul>
     </div>
-</div>
+  </div>
 
 <app-footer/>
