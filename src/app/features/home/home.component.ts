@@ -183,7 +183,6 @@ export class HomeComponent implements AfterViewInit {
           text: { value: originalText },
           ease: 'power4.out',
           innerHTML: true,
-
           stagger: 2
         }
       );

@@ -1,65 +1,61 @@
-<div class="container-max" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
-    <h1 class="special-gothic-400">Quotes</h1>
-    <h2 class="m0">📖 Descrizione del progetto</h2>
+<div class="container-max pb2 mb2" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
+    <div class="space-between align-center gap1">
+        <h1 class="special-gothic-400">Quotes</h1>
+        <button (click)="ui.redirectTo('home')" class="btn-secondary"><img src="../../../assets/icon/arrow-left-solid.svg" alt="">indietro</button>
+    </div>
+    <h2 class="mt2 mb0">📖 Descrizione del progetto</h2>
     <p>
-        "Quotes" è un'app web sviluppata in Angular 19, pensata per offrire un'esperienza interattiva e ispirazionale nella raccolta, visualizzazione e generazione di citazioni.
-        Il progetto unisce funzionalità dinamiche e un’interfaccia fluida, con l'integrazione di librerie moderne e tecnologie intelligenti.
+        Quotes è una web app sviluppata in Angular 19, pensata per offrire un'esperienza interattiva e che permetta la visualizzazione e generazione di citazioni. 
+        <br><br>I contenuti possono essere inseriti sia manualmente, sia tramite un’API che importa elementi come quelli visualizzati
+        nel carosello di card. Inoltre, è possibile generare automaticamente citazioni grazie all’integrazione con i
+        suggerimenti forniti da OpenAI.<br><br>
+        Il progetto unisce funzionalità dinamiche e un’interfaccia responsive, progettata tramite un veloce wireframe, con l'integrazione di librerie moderne e tecnologie intelligenti.
+        Il prototipo è presente in questo <a class="bold" target="_blank" href="https://www.figma.com/design/2xCmtjQ0LbRXJiulP91HhN/Quotes?node-id=0-1&t=wsLuxQnQWTo5TkTk-1">link</a>.
     </p>
 
-    <h2>⚙️ Funzionalità principali</h2>
+    <h2 class="mt2 mb0">⚙️ Funzionalità principali</h2>
     <p>
-        📜 Visualizzazione di citazioni consigliate tramite carosello interattivo realizzato con Splide.js
+        📜 Visualizzazione di citazioni consigliate tramite carosello interattivo realizzato con Splide.js<br>
     
-        ✍️ Aggiunta manuale di citazioni personalizzate, con campi per autore (opzionale) e testo (obbligatorio)
+        ✍️ Aggiunta manuale di citazioni personalizzate, con campi per autore (opzionale) e testo (obbligatorio)<br>
     
-        🧠 Generazione automatica di citazioni tramite integrazione con GPT (OpenAI API)
+        🤖 Generazione automatica di citazioni tramite integrazione con GPT (OpenAI API)<br>
     
-        → L'utente può richiedere frasi ispirazionali su un tema a scelta
+        💬 L'utente può richiedere frasi ispirazionali su un tema a scelta<br>
     
-        🔍 Searchbar intelligente per il filtraggio dinamico delle citazioni salvate, anche per parole chiave multiple
+        🔍 Searchbar intelligente per il filtraggio dinamico delle citazioni salvate, anche per parole chiave multiple<br>
     
-        🧠 Salvataggio persistente delle citazioni personalizzate in localStorage
+        🧠 Salvataggio persistente delle citazioni personalizzate in localStorage (in assenza di un be a cui connettersi)<br>
     
-        🗑️ Rimozione e gestione dinamica delle citazioni con aggiornamento automatico dell'interfaccia
+        🗑️ Rimozione e gestione dinamica delle citazioni con aggiornamento automatico dell'interfaccia<br>
     
-        📅 Tracciamento della data e ora di salvataggio di ogni citazione
+        📅 Tracciamento della data e ora di salvataggio di ogni citazione<br>
     
-        🌍 Interfaccia user-friendly, pensata anche per mobile
+        🌍 Interfaccia user-friendly, pensata anche per mobile<br>
     </p>
 
-    <h2>💡 Stack e tecnologie utilizzate</h2>
+    <h2 class="mt2 mb0">💡 Stack e tecnologie utilizzate</h2>
     <p>
-        Angular 19 – framework principale per struttura e componentizzazione
-    
-        GSAP (GreenSock Animation Platform) – usato per animazioni testuali (effetto scrittura, transizioni dinamiche)
-    
-        Splide.js – libreria per carousel, integrata direttamente in Angular con personalizzazione avanzata (auto scroll, loop, ecc.)
-    
-        OpenAI GPT-3.5-turbo – integrazione via API per generare contenuti testuali ispirazionali
-    
-        RxJS / BehaviorSubject – per gestione reattiva dello stato (savedQuotes$) e aggiornamento in tempo reale
-    
-        localStorage – per la persistenza locale dei dati utente
-    
-        Vercel – per il deploy e hosting del progetto, con gestione delle chiavi API tramite environment variables
-    
-        🎯 Obiettivo del progetto:
-        L'app nasce con l'intento di fornire uno strumento leggero e creativo per trovare o generare frasi significative da usare in contesti personali, sociali o professionali, mantenendo un'esperienza fluida, interattiva e accessibile.
-    
-        ✅ Cosa dimostra questo progetto:
-        Capacità di integrare API esterne e gestire la sicurezza delle chiavi
-    
-        Uso avanzato di Angular e pattern reattivi
-    
-        Competenze nella gestione dinamica dell'interfaccia e nella user experience
-    
-        Integrazione armoniosa tra design, animazione e funzionalità
+        <strong>Angular 19</strong>  – framework principale<br>    
+        <strong>GSAP (GreenSock Animation Platform)</strong>  – usato per animazioni testuali (effetto scrittura, transizioni dinamiche)<br>    
+        <strong>Splide.js</strong>  – libreria per carousel, integrata direttamente in Angular con personalizzazione avanzata (auto scroll, loop, ecc.)<br>    
+        <strong>OpenAI GPT-3.5-turbo</strong>  – integrazione via API per generare contenuti testuali ispirazionali<br>    
+        <strong>RxJS / BehaviorSubject</strong> – per gestione reattiva dello stato (savedQuotes$) e aggiornamento in tempo reale<br>    
+        <strong>localStorage</strong>  – per la persistenza locale dei dati utente<br>    
+        <strong>Vercel</strong>  – per il deploy e hosting del progetto, con gestione delle chiavi API tramite environment variables<br>
+        <strong>Scss</strong> - gestione degli stili con delle mixin, e dividendo tra colori, bottoni, tipografia, rendendoli dinamici riutilizzando ogni foglio tramite una <i>&#64;import</i> nel componente interessato
+    </p>
+    <h2 class="mt2 mb0">🎯 Obiettivo del progetto</h2>
+    <p>
+        L'app nasce con l'intento di fornire uno strumento leggero e creativo per trovare o generare frasi significative da usare in contesti personali, sociali o professionali, mantenendo un'esperienza fluida, interattiva e accessibile.    
+        <br>Cosa dimostra questo progetto?
+        Capacità di integrare API esterne e gestire la sicurezza delle chiavi,    
+        uso avanzato di Angular e pattern reattivi,
+        competenze nella gestione dinamica dell'interfaccia e nella user experience,   
+        integrazione armoniosa tra design, animazione e funzionalità.
     </p>
 </div>
 
-<div class="justify-end pr2 mr2">
-    <button (click)="ui.redirectTo('home')" class="btn-secondary"><img src="../../../assets/icon/arrow-left-solid.svg" alt="">Torna indietro</button>
-</div>
 <app-footer></app-footer>
 
 
