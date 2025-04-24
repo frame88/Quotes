@@ -53,17 +53,30 @@
     </div>
 
     <div id="list-savedquotes" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
+      searchbar
+      <input type="text" [(ngModel)]="searchText" placeholder="Cerca citazioni..." class="search-input mb2" />
+      
+      <ul>
+        @for (quote of filteredQuotes$ | async; track quote) {
+        <li>
+          <p>"{{ quote.text }}"</p>
+          <p><strong>— {{ quote.author }}</strong></p>
+        </li>
+        }
+      </ul>
       <h2 class="special-gothic-400">Citazioni salvate</h2>
       <ul class="pb2 mb2">
         @for (quote of savedQuotes$ | async; track quote; let i = $index) {
           <li class="saved-quote">
-            <div>
-              <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
-              <p><strong>— {{ quote.author }}</strong></p>
-            </div>
-            <div class="flex-column align-end justify-center">
-              <app-delete-cta (click)="deleteQuoteByIndex(i)" />
-              <p class="date">{{ quote.date }}</p>
+            <div class="space-between">
+              <div>
+                <p class="text-quote" #quoteTextRef>"{{ quote.text }}"</p>
+                <p><strong>— {{ quote.author }}</strong></p>
+              </div>
+              <div class="flex-column align-end justify-center">
+                <app-delete-cta (click)="deleteQuoteByIndex(i)" />
+                <p class="date">{{ quote.date }}</p>
+              </div>
             </div>
           </li>
         }

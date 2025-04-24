@@ -8,7 +8,7 @@ import { quote } from '../../models/quote';
 import { gsap } from 'gsap';
 import { TextPlugin } from "gsap/TextPlugin";
 import { savedQuote } from '../../models/savedQuote';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { DeleteCtaComponent } from "../../shared/delete-cta/delete-cta.component";
 import { GptService } from '../../services/gpt.service';
 import { FormsModule} from "@angular/forms";
@@ -39,6 +39,29 @@ export class HomeComponent implements AfterViewInit {
   newQuoteText: string = '';
   newQuoteAuthor: string = ''; 
   isLandscape = false;  
+  searchText = '';
+  private searchSubject = new BehaviorSubject<string>('');
+
+  filteredQuotes$ = combineLatest([
+    this.savedQuotes$,
+    this.searchSubject.asObservable()
+  ]).pipe(
+    map(([quotes, search]) => {
+      if (!search.trim()) return quotes;
+
+      const keywords = search
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(k => !!k);
+
+      return quotes.filter(quote =>
+        keywords.some(kw =>
+          quote.text.toLowerCase().includes(kw) ||
+          quote.author.toLowerCase().includes(kw)
+        )
+      );
+    })
+  );
 
   constructor(
     public quotesService: QuotesService, 
@@ -51,7 +74,11 @@ export class HomeComponent implements AfterViewInit {
     });
   }
   
-  ngOnInit(): void { }  
+  ngOnInit(): void {
+    // ogni volta che searchText cambia, aggiorna il filtro
+    // puoi anche farlo in (ngModelChange) se preferisci
+    setInterval(() => this.searchSubject.next(this.searchText), 100); // semplice polling reattivo
+  }  
 
   ngAfterViewInit(): void { 
     this.animateQuotes();
