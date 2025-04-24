@@ -51,8 +51,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
   
-  ngOnInit(): void { }
-  
+  ngOnInit(): void { }  
 
   ngAfterViewInit(): void { 
     this.animateQuotes();
@@ -153,21 +152,32 @@ export class HomeComponent implements AfterViewInit {
     return `${date} ${time}`;                     // es: 15/04/2025 14:36:10
   }
 
+  // delete citazione consigliata
   deleteQuote(index: number): void {
     const stored = localStorage.getItem('quotes');
     const quotes: quote[] = stored ? JSON.parse(stored) : [];
   
     if (index >= 0 && index < quotes.length) {
-      quotes.splice(index, 1); // rimuove l'elemento all'indice i
-      this.quotesService.storageQuotes.splice(index, 1); // rimuove l'elemento all'indice i
+      //this.quotesService.storageQuotes.splice(index, 1);
       localStorage.setItem('quotes', JSON.stringify(quotes));
-      console.log(`Citazione all'indice ${index} rimossa.`);
     } else {
       console.warn('Indice non valido per la cancellazione.');
     }
   
     this.quotesService.quotes = quotes;
     setTimeout(() => this.initSplide(), 0);
+  }
+
+  // delete citazione salvata
+  deleteQuoteByIndex(index: number): void {
+    const currentQuotes = this.savedQuotesSubject.value;
+
+    if (index >= 0 && index < currentQuotes.length) {
+      const updatedQuotes = [...currentQuotes]; 
+      updatedQuotes.splice(index, 1);
+      localStorage.setItem('savedQuotes', JSON.stringify(updatedQuotes));
+      this.savedQuotesSubject.next(updatedQuotes);
+    }
   }
 
   animateQuotes(): void {
@@ -195,7 +205,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  //funzione per agigunt amanuale dei valori
+  //funzione per aggiunta manuale dei valori
   addManualQuote(): void {
     const trimmedText = this.newQuoteText.trim();
   

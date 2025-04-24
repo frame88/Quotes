@@ -62,7 +62,7 @@
               <p><strong>— {{ quote.author }}</strong></p>
             </div>
             <div class="flex-column align-end justify-center">
-              <app-delete-cta (click)="deleteQuote(i)" />
+              <app-delete-cta (click)="deleteQuoteByIndex(i)" />
               <p class="date">{{ quote.date }}</p>
             </div>
           </li>
