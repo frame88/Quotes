@@ -1,6 +1,6 @@
-$primary: #16BAC5;
+$primary: #031527;
 $primary-hover: darken($primary, 10%);
-$primary-disabled: lighten($primary, 30%);
+$primary-disabled: rgba(128, 128, 128, 0.653);
 
 $secondary: white;
 $secondary-hover: darken($secondary, 2%);
