@@ -36,13 +36,15 @@ ul {
 .add-quote-form {
     display: flex; justify-content: center; 
     input, textarea {
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        border: 2px solid #c3c6ce;
         width: calc(90vw - 2rem);
     }
 }
 
+.input-field {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: 2px solid #c3c6ce;
+}
 
 .card {
     width: 190px;
@@ -142,6 +144,26 @@ ul {
 .suggestion {
     opacity: 0;
     animation: fadeInAnimation .3s ease-in forwards;
+}
+
+.searchbar-match {
+    padding: 2rem;
+    border-radius: 20px;
+    background-color: $primary;
+    color: white;
+    height: fit-content;
+    overflow: hidden;
+    animation: expandHeight 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes expandHeight {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInAnimation {

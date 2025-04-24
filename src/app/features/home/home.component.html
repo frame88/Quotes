@@ -17,11 +17,12 @@
 
     <div class="add-quote-form mb2 pb2" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
       <div class="flex-column">
-        <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" class="mb1" [value]="quotez"></textarea>
-        <input type="text" [(ngModel)]="newQuoteAuthor" placeholder="Autore (opzionale)" />
+        <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" class="mb1 input-field"></textarea>
+        <input type="text" [(ngModel)]="newQuoteAuthor" class="input-field" placeholder="Autore (opzionale)" />
         <div class="mt1 gap05">
           <button (click)="addManualQuote()" [disabled]="!newQuoteText?.trim()" class="btn-primary">Aggiungi</button>
           <button (click)="generaCitazione()" class="btn-secondary">Suggerisci</button>
+          <p><i>{{quotez}}</i></p>
           <!-- <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4> -->
         </div>
       </div>
@@ -53,18 +54,22 @@
     </div>
 
     <div id="list-savedquotes" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
-      searchbar
-      <input type="text" [(ngModel)]="searchText" placeholder="Cerca citazioni..." class="search-input mb2" />
+      <div class="space-between">
+        <h2 class="special-gothic-400">Citazioni salvate</h2>
+        <input type="text" [(ngModel)]="searchText" placeholder="Cerca citazioni..." class="input-field mb2" />
+      </div>
       
-      <ul>
-        @for (quote of filteredQuotes$ | async; track quote) {
-        <li>
-          <p>"{{ quote.text }}"</p>
-          <p><strong>— {{ quote.author }}</strong></p>
-        </li>
-        }
-      </ul>
-      <h2 class="special-gothic-400">Citazioni salvate</h2>
+      @if(searchText) {
+        <ul class="searchbar-match">
+          @for (quote of filteredQuotes$ | async; track quote) {
+          <li>
+            <p>"{{ quote.text }}"</p>
+            <p><strong>— {{ quote.author }}</strong></p>
+          </li>
+          }
+        </ul>
+      }
+      
       <ul class="pb2 mb2">
         @for (quote of savedQuotes$ | async; track quote; let i = $index) {
           <li class="saved-quote">
