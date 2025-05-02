@@ -1,20 +1,16 @@
 <div id="hamburger" class="center">
-    <video #bgVideo autoplay muted loop playsinline class="video-bg">
-      <source src="../../../assets/bg-hamburger/people.mp4" type="video/mp4" />
-      Il tuo browser non supporta il video.
-    </video>
-    <div class="container-center">
-      <h1 id="title" class="special-gothic-400 m0 title entry">Quotes</h1>
-      <p id="slogan" class="m0 slogan"></p>
-    </div>
+  <video #bgVideo autoplay muted loop playsinline class="video-bg">
+    <source src="../../../assets/bg-hamburger/watercolor.mp4" type="video/mp4" />
+    Il tuo browser non supporta il video.
+  </video>
+  <div class="container-center">
+    <h1 id="title" class="special-gothic-400 m0 title entry">Quotes</h1>
+    <p id="slogan" class="m0 slogan"></p>
+  </div>
 </div>
 
 <div class="mt2 pt2">
   <div>
-  <!-- <div class="text-center" style="height: 50px;">
-    <h4 class="suggestion" *ngIf="quotez">{{ quotez }}</h4>
-  </div> -->
-
     <div class="add-quote-form mb2 pb2" [ngStyle]="{'margin': isLandscape ? '0 10vw' : '0 5vw'}">
       <div class="flex-column">
         <textarea [(ngModel)]="newQuoteText" placeholder="Scrivi una citazione" required rows="4" class="mb1 input-field"></textarea>
