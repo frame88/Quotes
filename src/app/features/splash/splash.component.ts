@@ -16,21 +16,18 @@ export class SplashComponent implements OnInit {
   ngOnInit(): void {
     this.quotesService.getQuotes().subscribe({
       next: (res) => {
-        console.log('entrato nella fn')
-        console.log(res)
+        console.log('Citazioni ricevute:', res);
         this.quotesService.quotes = res;
         localStorage.setItem('quotes', JSON.stringify(res));
+        this.quotesService.storageQuotes = res;
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Errore durante il recupero delle citazioni:', err);
       }
-    });    
-    this.quotesService.storageQuotes = JSON.parse(localStorage.getItem('quotes') || '[]');
-
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 1500);
+    });
   }
+
 
 }
 
